@@ -1,11 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-// import App from './App';
-import Counter from './Counter';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(<Counter />, document.getElementById('root'));
+import "./styles.css";
+import LifeCycleSample from "./LifeCycleSample";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// 랜덤 색상을 생성합니다
+function getRandomColor() {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+}
+
+function App() {
+  const [color, setColor] = useState("#000000");
+  const [visible, setVisible] = useState(true);
+
+  const onClick = () => {
+    setColor(getRandomColor());
+  };
+
+  const onToggle = () => {
+    setVisible(!visible);
+  };
+
+  return (
+    <>
+      <button onClick={onClick}>랜덤 색상</button>
+      <button onClick={onToggle}>토글</button>
+      {visible && <LifeCycleSample color={color} />}
+    </>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
